@@ -107,7 +107,7 @@ npm run verify
 npm run pack:verified
 ```
 
-`upstream.json` pins LLVM 23.1.3 and Emscripten 4.0.23, including per-file SHA-256.
+[`upstream.json`](upstream.json) pins LLVM and Emscripten, including per-file SHA-256.
 `build-info.json` records those pins, the wrapper commit and artifact hashes.
 Clang generates bindings and access-only friend declarations; unrecognized fields,
 base layouts and safety-patch insertion points fail closed. Generated patches check
@@ -131,13 +131,13 @@ npm trust github llvm-itanium-demangle --repo Gladskih/llvm-itanium-demangle \
 ```
 
 For the first release, an authenticated maintainer can publish the verified tarball
-with `npm publish llvm-itanium-demangle-0.1.0.tgz --ignore-scripts --access public`.
+with `npm publish <tested-tarball> --ignore-scripts --access public`.
 
 ## Sources and licenses
 
-- [Pinned Itanium parser and AST](https://github.com/llvm/llvm-project/blob/0d261d1ca552c95a8f007e061c787ac7132fbcbc/llvm/include/llvm/Demangle/ItaniumDemangle.h)
-- [Pinned LLVM public demangler](https://github.com/llvm/llvm-project/blob/0d261d1ca552c95a8f007e061c787ac7132fbcbc/llvm/lib/Demangle/ItaniumDemangle.cpp)
-- [Upstream expected cases](https://github.com/llvm/llvm-project/blob/0d261d1ca552c95a8f007e061c787ac7132fbcbc/libcxxabi/test/DemangleTestCases.inc)
+- [Upstream Itanium parser and AST](https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/Demangle/ItaniumDemangle.h)
+- [Upstream LLVM public demangler](https://github.com/llvm/llvm-project/blob/main/llvm/lib/Demangle/ItaniumDemangle.cpp)
+- [Upstream expected cases](https://github.com/llvm/llvm-project/blob/main/libcxxabi/test/DemangleTestCases.inc)
 - [Itanium C++ ABI](https://itanium-cxx-abi.github.io/cxx-abi/abi.html#mangling)
 
 Wrapper: MIT. LLVM/generated artifacts: Apache-2.0 WITH LLVM-exception.
