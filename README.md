@@ -43,7 +43,7 @@ Formatted methods add `text: string` on success and `text: null` on failure.
 
 `consumed` counts UTF-8 bytes. Inputs must be well-formed Unicode with no ASCII
 control characters, DEL or embedded NUL. Encoded source-name lengths count bytes,
-not JavaScript UTF-16 code units: `demangleWithText("_Z2πv").text === "π()"`.
+not JavaScript UTF-16 code units: `demangleWithText("_Z2Ãâ‚¬v").text === "Ãâ‚¬()"`.
 LLVM requires complete input consumption. Unsupported suffixes are invalid;
 supported clone suffixes are preserved as `DotSuffix` AST nodes.
 
@@ -142,3 +142,28 @@ with `npm publish llvm-itanium-demangle-0.1.0.tgz --ignore-scripts --access publ
 
 Wrapper: MIT. LLVM/generated artifacts: Apache-2.0 WITH LLVM-exception.
 Redistribute [third-party notices](THIRD_PARTY_NOTICES.md) and `licenses/`.
+
+## Release maintenance
+
+GitHub releases are idempotent: existing asset SHA-256 digests must match the tested
+files. A matching published release is left intact; interrupted drafts receive only
+missing assets before publication. Conflicting or incomplete published releases fail
+without overwriting files, including when release immutability is enabled.
+
+The upstream watcher checks the primary source library weekly. It makes only metadata
+requests until a newer stable release is found; RC/nightly releases and downgrades
+are rejected. Unchanged or previously attempted candidates do not start another build.
+Run **Check upstream release** with `check_only: true` to inspect availability.
+
+An update pins the release commit and fresh source hashes, reserves the next npm
+compatibility line (minor for 0.x, major for 1.0+), and dispatches the normal publish
+workflow on an isolated candidate branch. That workflow runs the complete existing
+build/test/package gate before merging a PR, creating the version tag and publishing
+the exact tested archive with npm OIDC/provenance. Source/schema or license changes
+that fail CI stop publication; fix the candidate and rerun its publish workflow.
+If main advances, rebase and recheck the candidate. Toolchain pins (Emscripten, Rust,
+Binaryen, wasm-bindgen and build helpers) remain independent of this library watcher.
+
+No cross-repository webhook or persistent publisher token is required. GitHub may
+disable scheduled workflows in inactive public repositories; re-enable the watcher
+if GitHub notifies you of inactivity. Failed candidates remain available for diagnosis.
