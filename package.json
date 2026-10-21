@@ -1,6 +1,6 @@
 {
   "name": "llvm-itanium-demangle",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Local LLVM Itanium C++ demangler with a structured AST, compiled to WebAssembly",
   "type": "module",
   "license": "MIT",
